@@ -2,9 +2,9 @@
   "name": "koa-graphql-ts",
   "version": "0.0.3",
   "license": "MIT",
-  "main": "dist/commonjs/main.js",
-  "module": "dist/es6/main.js",
-  "types": "dist/es6/main.d.ts",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/es6/index.js",
+  "types": "dist/es6/index.d.ts",
   "sideEffects": false,
   "author": "Dominik Kuen <d.kuen@averi.at>, Patrick Kuen <p.kuen@averi.at>",
   "repository": {
