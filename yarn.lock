@@ -111,3 +111,15 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+graphql@^14.0.2:
+  version "14.0.2"
+  resolved "https://averi.at:4873/graphql/-/graphql-14.0.2.tgz#7dded337a4c3fd2d075692323384034b357f5650"
+  integrity sha512-gUC4YYsaiSJT1h40krG3J+USGlwhzNTXSb4IOZljn9ag5Tj+RkoXrWp+Kh7WyE3t1NCfab5kzCuxBIvOMERMXw==
+  dependencies:
+    iterall "^1.2.2"
+
+iterall@^1.2.2:
+  version "1.2.2"
+  resolved "https://averi.at:4873/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
+  integrity sha512-yynBb1g+RFUPY64fTrFv7nsjRrENBQJaX2UL+2Szc9REFrSNm1rpSXHGzhmAy7a9uv3vlvgBlXnf9RqmPH1/DA==

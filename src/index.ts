@@ -18,8 +18,7 @@ export interface GraphQLServerOptions {
 }
 
 export interface ExtendedRequest extends Request {
-  body: Record<string, any> | null | undefined;
-  rawBody: Record<string, any> | null | undefined;
+  body?: Record<string, any> | null | undefined;
 }
 
 export interface ExtendedParameterizedContext extends ParameterizedContext {
@@ -34,18 +33,21 @@ export const handleErrors = function(result: ExecutionResultDataDefault, formatE
 
 export const graphQLServer = function(options: GraphQLServerOptions) {
   return async function(ctx: ExtendedParameterizedContext, next: () => Promise<void>) {
-
+    console.log('server')
     if (options.graphiql) {
       ctx.type = 'text/html'
       ctx.status = 200
       ctx.body = renderGraphiQL({})
     } else {
       try {
+        console.log('gql request')
         const result = await graphql(options.schema, ctx.request.body ? ctx.request.body.query : null, null, ctx, ctx.request.body ? ctx.request.body.variables || null : null)
+        console.log('res')
         ctx.body = result
-
+        console.log(result, ctx.body)
         handleErrors(result, options.formatError)
       } catch (error) {
+        console.error(error)
         ctx.status = error.status || 500
         handleErrors({errors: [error]}, options.formatError)
       }
