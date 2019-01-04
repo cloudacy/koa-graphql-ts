@@ -1,0 +1,13 @@
+/node_modules
+/dist
+.DS_Store
+._*
+*.log
+*.xlsx
+/tmp
+/tmp_uncompressed
+/sheetjs
+/sheetjswrite
+/rep
+/Mappe1
+*.zip
