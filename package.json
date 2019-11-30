@@ -13,11 +13,11 @@
   "scripts": {
     "build": "tsc -m ES6 --outDir dist/es6 && tsc -m commonjs --outDir dist/commonjs"
   },
+  "dependencies": {},
   "devDependencies": {
-    "@types/graphql": "^14.0.4",
+    "@types/graphql": "^14.5.0",
     "@types/koa": "^2.0.48"
   },
-  "dependencies": {},
   "peerDependencies": {
     "graphql": "^14.0.2"
   }
