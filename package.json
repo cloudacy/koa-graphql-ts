@@ -1,6 +1,6 @@
 {
   "name": "koa-graphql-ts",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "main": "dist/commonjs/index.js",
   "module": "dist/es6/index.js",
