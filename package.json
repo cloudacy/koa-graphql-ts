@@ -6,10 +6,7 @@
   "module": "dist/es6/index.js",
   "types": "dist/es6/index.d.ts",
   "sideEffects": false,
-  "author": "Dominik Kuen <d.kuen@averi.at>, Patrick Kuen <p.kuen@averi.at>",
-  "repository": {
-    "gitlab": "git@gitlab.com:averi/packages/koa-graphql-ts.git"
-  },
+  "author": "Dominik Kuen <d.kuen@cloudacy.com>, Patrick Kuen <p.kuen@cloudacy.com>",
   "scripts": {
     "build": "tsc -m ES6 --outDir dist/es6 && tsc -m commonjs --outDir dist/commonjs"
   },
