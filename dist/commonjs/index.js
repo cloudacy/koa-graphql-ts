@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.graphQLServer = exports.handleErrors = void 0;
 const graphql_1 = require("graphql");
 exports.handleErrors = function (result, formatError) {
     if (formatError && result.errors) {
