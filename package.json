@@ -11,10 +11,10 @@
     "build": "tsc -m ES6 --outDir dist/es6 && tsc -m commonjs --outDir dist/commonjs"
   },
   "dependencies": {
-    "graphql": "^15.1.0"
+    "graphql": "^15.2.0"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   }
 }
