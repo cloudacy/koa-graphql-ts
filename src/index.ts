@@ -1,24 +1,24 @@
 import { ParameterizedContext, Request } from "koa";
-import { GraphQLSchema, graphql, ExecutionResult } from "graphql";
+import { GraphQLSchema, graphql, ExecutionResult, GraphQLError } from "graphql";
 
 export type ErrorFunction = (
-  error: any,
+  error: GraphQLError,
   returnNull?: boolean | undefined
-) => any;
+) => unknown;
 
 export interface GraphQLServerOptions {
   schema: GraphQLSchema;
-  rootValue?: any;
-  ctx?: any;
+  rootValue?: unknown;
+  ctx?: unknown;
   pretty?: boolean;
   formatError?: ErrorFunction;
-  extensions?: () => any;
+  extensions?: () => unknown;
   validationRules?: {};
-  fieldResolver?: any;
+  fieldResolver?: unknown;
 }
 
 export interface ExtendedRequest extends Request {
-  body?: Record<string, any> | null | undefined;
+  body?: Record<string, unknown>;
 }
 
 export interface ExtendedParameterizedContext extends ParameterizedContext {
@@ -30,7 +30,7 @@ export const handleErrors = function (
   formatError?: ErrorFunction
 ) {
   if (formatError && result.errors) {
-    result.errors = result.errors.map((err: Error) => formatError(err));
+    result.errors = result.errors.map((err) => formatError(err)) as any;
   }
 };
 
@@ -39,10 +39,10 @@ export const graphQLServer = function (options: GraphQLServerOptions) {
     try {
       const result = await graphql(
         options.schema,
-        ctx.request.body ? ctx.request.body.query : null,
+        ctx.request.body!.query as string,
         null,
         ctx,
-        ctx.request.body ? ctx.request.body.variables || null : null
+        (ctx.request.body?.variables as Record<string, unknown>) || undefined
       );
       ctx.body = result;
       handleErrors(result, options.formatError);
