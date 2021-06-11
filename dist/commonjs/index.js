@@ -11,16 +11,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.graphQLServer = exports.handleErrors = void 0;
 const graphql_1 = require("graphql");
-exports.handleErrors = function (result, formatError) {
+const handleErrors = function (result, formatError) {
     if (formatError && result.errors) {
         result.errors = result.errors.map((err) => formatError(err));
     }
 };
-exports.graphQLServer = function (options) {
+exports.handleErrors = handleErrors;
+const graphQLServer = function (options) {
     return function (ctx) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield graphql_1.graphql(options.schema, ctx.request.body ? ctx.request.body.query : null, null, ctx, ctx.request.body ? ctx.request.body.variables || null : null);
+                const result = yield graphql_1.graphql(options.schema, ctx.request.body.query, null, ctx, ((_a = ctx.request.body) === null || _a === void 0 ? void 0 : _a.variables) || undefined);
                 ctx.body = result;
                 exports.handleErrors(result, options.formatError);
             }
@@ -31,4 +33,5 @@ exports.graphQLServer = function (options) {
         });
     };
 };
+exports.graphQLServer = graphQLServer;
 //# sourceMappingURL=index.js.map

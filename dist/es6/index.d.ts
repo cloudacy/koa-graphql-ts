@@ -1,18 +1,18 @@
 import { ParameterizedContext, Request } from "koa";
-import { GraphQLSchema, ExecutionResult } from "graphql";
-export declare type ErrorFunction = (error: any, returnNull?: boolean | undefined) => any;
+import { GraphQLSchema, ExecutionResult, GraphQLError } from "graphql";
+export declare type ErrorFunction = (error: GraphQLError, returnNull?: boolean | undefined) => unknown;
 export interface GraphQLServerOptions {
     schema: GraphQLSchema;
-    rootValue?: any;
-    ctx?: any;
+    rootValue?: unknown;
+    ctx?: unknown;
     pretty?: boolean;
     formatError?: ErrorFunction;
-    extensions?: () => any;
+    extensions?: () => unknown;
     validationRules?: {};
-    fieldResolver?: any;
+    fieldResolver?: unknown;
 }
 export interface ExtendedRequest extends Request {
-    body?: Record<string, any> | null | undefined;
+    body?: Record<string, unknown>;
 }
 export interface ExtendedParameterizedContext extends ParameterizedContext {
     request: ExtendedRequest;
