@@ -1,4 +1,4 @@
-import { ParameterizedContext, Request } from "koa";
+import { Context } from "koa";
 import { GraphQLSchema, graphql, ExecutionResult, GraphQLError } from "graphql";
 
 export type ErrorFunction = (
@@ -17,14 +17,6 @@ export interface GraphQLServerOptions {
   fieldResolver?: unknown;
 }
 
-export interface ExtendedRequest extends Request {
-  body?: Record<string, unknown>;
-}
-
-export interface ExtendedParameterizedContext extends ParameterizedContext {
-  request: ExtendedRequest;
-}
-
 export const handleErrors = function (
   result: ExecutionResult,
   formatError?: ErrorFunction
@@ -35,14 +27,16 @@ export const handleErrors = function (
 };
 
 export const graphQLServer = function (options: GraphQLServerOptions) {
-  return async function (ctx: ExtendedParameterizedContext) {
+  return async function (
+    ctx: Context & { request: { body: Record<string, unknown> } }
+  ) {
     try {
       const result = await graphql(
         options.schema,
-        ctx.request.body!.query as string,
+        ctx.request.body.query as string,
         null,
         ctx,
-        (ctx.request.body?.variables as Record<string, unknown>) || undefined
+        (ctx.request.body.variables as Record<string, unknown>) || undefined
       );
       ctx.body = result;
       handleErrors(result, options.formatError);

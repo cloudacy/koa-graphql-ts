@@ -19,10 +19,9 @@ const handleErrors = function (result, formatError) {
 exports.handleErrors = handleErrors;
 const graphQLServer = function (options) {
     return function (ctx) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield graphql_1.graphql(options.schema, ctx.request.body.query, null, ctx, ((_a = ctx.request.body) === null || _a === void 0 ? void 0 : _a.variables) || undefined);
+                const result = yield graphql_1.graphql(options.schema, ctx.request.body.query, null, ctx, ctx.request.body.variables || undefined);
                 ctx.body = result;
                 exports.handleErrors(result, options.formatError);
             }
