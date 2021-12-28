@@ -31,17 +31,30 @@ export const graphQLServer = function (options: GraphQLServerOptions) {
     ctx: Context & { request: { body: Record<string, unknown> } }
   ) {
     try {
-      const result = await graphql(
-        options.schema,
-        ctx.request.body.query as string,
-        null,
-        ctx,
-        (ctx.request.body.variables as Record<string, unknown>) || undefined
-      );
+      const result = await graphql({
+        schema: options.schema,
+        source: ctx.request.body.query as string,
+        variableValues: ctx.request.body.variables as
+          | Record<string, unknown>
+          | undefined,
+        contextValue: ctx,
+      });
       ctx.body = result;
       handleErrors(result, options.formatError);
     } catch (error) {
-      ctx.status = error.status || 500;
+      if (!(error instanceof Error)) {
+        console.error(error);
+        ctx.status = 500;
+        return;
+      }
+
+      if (!(error instanceof GraphQLError)) {
+        console.error(error.message, error);
+        ctx.status = 500;
+        return;
+      }
+
+      ctx.status = 400;
       handleErrors({ errors: [error] }, options.formatError);
     }
   };

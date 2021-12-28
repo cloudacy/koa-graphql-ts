@@ -21,13 +21,28 @@ const graphQLServer = function (options) {
     return function (ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield graphql_1.graphql(options.schema, ctx.request.body.query, null, ctx, ctx.request.body.variables || undefined);
+                const result = yield (0, graphql_1.graphql)({
+                    schema: options.schema,
+                    source: ctx.request.body.query,
+                    variableValues: ctx.request.body.variables,
+                    contextValue: ctx,
+                });
                 ctx.body = result;
-                exports.handleErrors(result, options.formatError);
+                (0, exports.handleErrors)(result, options.formatError);
             }
             catch (error) {
-                ctx.status = error.status || 500;
-                exports.handleErrors({ errors: [error] }, options.formatError);
+                if (!(error instanceof Error)) {
+                    console.error(error);
+                    ctx.status = 500;
+                    return;
+                }
+                if (!(error instanceof graphql_1.GraphQLError)) {
+                    console.error(error.message, error);
+                    ctx.status = 500;
+                    return;
+                }
+                ctx.status = 400;
+                (0, exports.handleErrors)({ errors: [error] }, options.formatError);
             }
         });
     };
